@@ -9,10 +9,11 @@
 */
 
 
-function FMLjs(elem = null) {
+var FMLjs = function (elem = null) {
 
-	this.size;
-	this.color;
+	var id, cls,
+		regex = [/#/g,/\./g];
+
 	this.elem = elem || null;
 
 	this.msg = (str) => {
@@ -20,36 +21,33 @@ function FMLjs(elem = null) {
 		return alert(prefix+str);
 	}
 
+	this.verify = (dom, script) => {
+		if (typeof dom != 'undefined') {
+			dom.innerHTML += script;
+		} else {
+			this.msg(dom+' not found.');
+		}
+	}
+
 	this.body = (script) => {
 		if (this.elem != null) {
-			var elem = document.getElementById(this.elem);
-			if (typeof elem != 'undefined' && elem != null) {
-				elem.innerHTML += script; 	
-			} else if (typeof elem != 'undefined' && elem != null) {
-				elem = document.getElementsByClassName(this.elem)[0];
-				elem.innerHTML += script;
+			if (regex[0].test(this.elem)) {
+				id = this.elem.replace(regex[0],'');
+				this.verify(document.getElementById(id),script);
+			} else if (regex[1].test(this.elem)) {
+				cls = this.elem.replace(regex[1],'');
+				this.verify(document.getElementsByClassName(cls)[0],script);
 			} else {
-				this.msg('Target element not found.');
+				this.msg('Target element must be a Class or ID.');
 			}
 		} else {
 			this.msg('You haven\'t defined the target element yet.');
 		} 
 	}
 
-	FMLjs.prototype.target = (tg) => {
-		this.elem = tg; 
-	}
-
-	FMLjs.prototype.h = (size) => {
-		this.size = size;
-		this.body('h'+this.size+'[(h1-h6 works)<Text>]'); 
-	}
-
-	FMLjs.prototype.c = (color) => {
-		this.color = color;
-		this.body('c'+this.color+'[<Text>]'); 
-	}
-
+	FMLjs.prototype.target = (tg) => { this.elem = tg }
+	FMLjs.prototype.h = (size) => { this.body('h'+size+'[(h1-h6 works)<Text>]') }
+	FMLjs.prototype.c = (color) => { this.body('c'+color+'[<Text>]') }
 	FMLjs.prototype.a = () => { this.body('a[<URL>]') }
 	FMLjs.prototype.b = () => { this.body('b[<Text>]') }
 	FMLjs.prototype.u = () => { this.body('u[<Text>]') }
@@ -58,12 +56,12 @@ function FMLjs(elem = null) {
 	FMLjs.prototype.hr = () => { this.body('hr[<Text or leave blank>]') }
 	FMLjs.prototype.img = () => { this.body('img[<Image URL>]') }
 	FMLjs.prototype.yt = () => { this.body('yt[<YouTube ID Only>]') }
-};
+}
 
 /* Example
-	var fml = new FMLjs('content');
-	optional: fml.target('content');
-	fml.a();
+	var fml = new FMLjs('#content');
+	optional: fml.target('#content');
+	fml.a(); 
 	fml.yt();
 	fml.c(2);
 	fml.h(1);
