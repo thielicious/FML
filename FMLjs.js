@@ -9,14 +9,19 @@
 */
 
 
-function FMLjs(elem) {
+function FMLjs(elem = null) {
 
 	this.size;
 	this.color;
-	this.elem = elem;
+	this.elem = elem || null;
+
+	this.msg = (str) => {
+		var prefix = '[FMLjs]\n\nError: ';
+		return alert(prefix+str);
+	}
 
 	this.body = (script) => {
-		if (this.elem.length > 0) {
+		if (this.elem == null) {
 			var elem = document.getElementById(this.elem);
 			if (typeof elem == 'undefined' && elem == null) {
 				elem.innerHTML += script; 	
@@ -24,9 +29,15 @@ function FMLjs(elem) {
 				elem = document.getElementsByClassName(this.elem)[0];
 				elem.innerHTML += script;
 			} else {
-				alert('[FMLjs]\n\nError: Target Element not found.');
+				this.msg('Target element not found.');
 			}
+		} else {
+			this.msg('You haven\'t defined the target element yet.');
 		} 
+	}
+
+	FMLjs.prototype.target = (tg) => {
+		this.elem = tg; 
 	}
 
 	FMLjs.prototype.h = (size) => {
