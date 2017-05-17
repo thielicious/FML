@@ -1,4 +1,3 @@
-
 /* 
 	FMLjs v1.0 (c) 2017 by Thielicious
 	thielicious.github.io
@@ -22,9 +21,9 @@ function FMLjs(elem = null) {
 	}
 
 	this.body = (script) => {
-		if (this.elem == null) {
+		if (this.elem != null) {
 			var elem = document.getElementById(this.elem);
-			if (typeof elem == 'undefined' && elem == null) {
+			if (typeof elem != 'undefined' && elem != null) {
 				elem.innerHTML += script; 	
 			} else if (typeof elem != 'undefined' && elem != null) {
 				elem = document.getElementsByClassName(this.elem)[0];
@@ -63,7 +62,8 @@ function FMLjs(elem = null) {
 
 /* Example
 	var fml = new FMLjs('content');
-	fml.a()
+	optional: fml.target('content');
+	fml.a();
 	fml.yt();
 	fml.c(2);
 	fml.h(1);
