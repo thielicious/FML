@@ -4,8 +4,9 @@
 	thielicious.github.io
 	
 	FMLjs is a plugin that parses FML(Forum Markup Language) 
-	commands in a post or topic contents. Simply define the 
-	target ID of your DOM Element and use any of these prototypes.
+	commands in post or topic contents. Simply define the 
+	target ID/class of your DOM Element and use any of these 
+	prototypes.
 */
 
 
