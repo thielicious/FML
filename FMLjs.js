@@ -23,7 +23,7 @@ var FMLjs = function (elem = null) {
 
 	this.verify = (dom, script) => {
 		if (typeof dom != 'undefined') {
-			dom.innerHTML += script;
+			dom.value += script;
 		} else {
 			this.msg(dom+' not found.');
 		}

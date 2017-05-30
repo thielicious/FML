@@ -83,7 +83,7 @@
 			// video
 			if ($get("yt")) { 
 				foreach ($get("yt") as $m) {
-					$replace[$m] = "<iframe class=fml-yt width='420' height='315' frameborder='0' src='".$m."'></iframe>";
+					$replace[$m] = "<iframe class=fml-yt width='420' height='315' frameborder='0' src='https://www.youtube.com/embed/".$m."'></iframe>";
 				}
 			}
 
